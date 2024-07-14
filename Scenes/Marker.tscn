@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbeyguws2fjvk"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3nsqu"]
+normal = Vector2(1, 0)
+distance = -39.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_s4t3u"]
+normal = Vector2(-1, 0)
+distance = -45.0
+
+[node name="Marker" type="Node2D"]
+
+[node name="marker_left" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+monitoring = false
+
+[node name="marker_left_body" type="CollisionShape2D" parent="marker_left"]
+shape = SubResource("WorldBoundaryShape2D_3nsqu")
+
+[node name="marker_right" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+monitoring = false
+
+[node name="marker_right_body" type="CollisionShape2D" parent="marker_right"]
+shape = SubResource("WorldBoundaryShape2D_s4t3u")

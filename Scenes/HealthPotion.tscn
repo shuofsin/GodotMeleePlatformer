@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bss7pgbmo7bbt"]
+
+[ext_resource type="Script" path="res://Scripts/healthpotion.gd" id="1_r0vgf"]
+[ext_resource type="Texture2D" uid="uid://b2wghcfthtqmv" path="res://Assets/large-potion/spritesheets/1x/heath-pot-master.png" id="2_vhqcc"]
+[ext_resource type="PackedScene" uid="uid://b4nt8ferk20x7" path="res://Scenes/Detectbox.tscn" id="3_ytun6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wsyri"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7f6wf"]
+radius = 4.0
+
+[node name="HealthPotion" type="CharacterBody2D"]
+collision_layer = 32
+script = ExtResource("1_r0vgf")
+
+[node name="sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_vhqcc")
+hframes = 3
+frame = 2
+
+[node name="body" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wsyri")
+
+[node name="Detectbox" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_ytun6")]
+collision_layer = 32
+collision_mask = 2
+monitorable = false
+sprite = NodePath("../sprite")
+
+[node name="CollisionShape2D" parent="Detectbox" index="0"]
+shape = SubResource("CircleShape2D_7f6wf")
+
+[connection signal="area_entered" from="Detectbox" to="." method="_on_detectbox_area_entered"]
+
+[editable path="Detectbox"]

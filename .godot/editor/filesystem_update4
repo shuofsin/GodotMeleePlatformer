@@ -1,0 +1,14 @@
+res://Scenes/HoundBoss.tscn
+res://Scripts/hitflash.gdshader
+res://Scenes/Game.tscn
+res://Scenes/Gunner.tscn
+res://Scenes/Bat.tscn
+res://Scenes/Player.tscn
+res://Scenes/Hound.tscn
+res://Scenes/GunnerProjectile.tscn
+res://Scenes/GroundProjectile.tscn
+res://Scenes/AirProjectile.tscn
+res://Scenes/Marker.tscn
+res://Scenes/Hurtbox.tscn
+res://Scenes/world_boundry.tscn
+res://Scripts/Hound/hound.gd

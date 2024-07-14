@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbht2dsahpn6h"]
+
+[ext_resource type="Script" path="res://Scripts/foundbox.gd" id="1_15f63"]
+
+[node name="Foundbox" type="Area2D"]
+modulate = Color(0.93372, 0.687217, 0.880994, 1)
+monitoring = false
+script = ExtResource("1_15f63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

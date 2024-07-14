@@ -1,0 +1,5 @@
+Idle: 0 - 1
+Run: 2 - 9
+Jump: 10 - 14
+Fall: 15 - 18
+Ground Attack: 19 - 30

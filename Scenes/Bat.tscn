@@ -1,0 +1,341 @@
+[gd_scene load_steps=27 format=3 uid="uid://5x7g0djhfvea"]
+
+[ext_resource type="Script" path="res://Scripts/Bat/bat.gd" id="1_kln0f"]
+[ext_resource type="Texture2D" uid="uid://ctcxxlt4qgqc0" path="res://Assets/demon-bat/spritesheets/1x/demon-bat-master.png" id="1_tx0iw"]
+[ext_resource type="Script" path="res://Scripts/Bat/bat_manager.gd" id="2_mga6f"]
+[ext_resource type="Shader" path="res://Scripts/hitflash.gdshader" id="3_kq0hd"]
+[ext_resource type="PackedScene" uid="uid://b4nt8ferk20x7" path="res://Scenes/Detectbox.tscn" id="3_s36mt"]
+[ext_resource type="Script" path="res://Scripts/Bat/idle.gd" id="4_8yojo"]
+[ext_resource type="PackedScene" uid="uid://b1mj2rau38rmd" path="res://Scenes/Hurtbox.tscn" id="4_oq0vn"]
+[ext_resource type="Script" path="res://Scripts/Bat/move.gd" id="5_ltx87"]
+[ext_resource type="PackedScene" uid="uid://unbq8lw5lfc4" path="res://Scenes/Hitbox.tscn" id="5_uce76"]
+[ext_resource type="Script" path="res://Scripts/Bat/bite.gd" id="6_lfu0x"]
+[ext_resource type="Script" path="res://Scripts/Bat/death.gd" id="7_isbpi"]
+[ext_resource type="Script" path="res://Scripts/state_machine.gd" id="8_b4hnd"]
+[ext_resource type="AudioStream" uid="uid://rw7yr30qkn82" path="res://Assets/sounds/bat/bat_flap.wav" id="12_hhrh2"]
+[ext_resource type="AudioStream" uid="uid://c6cbv3ougf0jd" path="res://Assets/sounds/bat/bat_bite.wav" id="13_mnn8f"]
+[ext_resource type="AudioStream" uid="uid://bdgvn8qbngvgq" path="res://Assets/sounds/bat/bat_death.wav" id="14_tekj7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0t42i"]
+shader = ExtResource("3_kq0hd")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_klhsl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("audio/bite:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("audio/fly:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("audio/death:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qsvul"]
+resource_name = "bite"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 22]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("audio/bite:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8s4f5"]
+resource_name = "death"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("audio/death:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_bhiv6"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 3, 2, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("audio/fly:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fxyn8"]
+_data = {
+"RESET": SubResource("Animation_klhsl"),
+"bite": SubResource("Animation_qsvul"),
+"death": SubResource("Animation_8s4f5"),
+"idle": SubResource("Animation_bhiv6")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p030w"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vo0vf"]
+radius = 57.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5asgf"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rrlr0"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lc6dn"]
+radius = 6.0
+height = 24.0
+
+[node name="Bat" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_kln0f")
+
+[node name="bat_manager" type="Node" parent="."]
+script = ExtResource("2_mga6f")
+
+[node name="sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0t42i")
+texture = ExtResource("1_tx0iw")
+hframes = 23
+
+[node name="animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fxyn8")
+}
+
+[node name="body" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_p030w")
+
+[node name="Detectbox" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_s36mt")]
+sprite = NodePath("../sprite")
+
+[node name="CollisionShape2D" parent="Detectbox" index="0"]
+shape = SubResource("CircleShape2D_vo0vf")
+
+[node name="Attackbox" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("3_s36mt")]
+sprite = NodePath("../sprite")
+
+[node name="CollisionShape2D" parent="Attackbox" index="0"]
+shape = SubResource("CircleShape2D_5asgf")
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("4_oq0vn")]
+collision_layer = 0
+collision_mask = 72
+sprite = NodePath("../sprite")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_rrlr0")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("5_uce76")]
+collision_layer = 4
+collision_mask = 0
+sprite = NodePath("../sprite")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(7, 3)
+shape = SubResource("CapsuleShape2D_lc6dn")
+disabled = true
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("8_b4hnd")
+starting_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "death_state")]
+script = ExtResource("4_8yojo")
+move_state = NodePath("../move")
+death_state = NodePath("../death")
+animation_name = "idle"
+move_speed = 25.0
+
+[node name="move" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "bite_state", "death_state")]
+script = ExtResource("5_ltx87")
+idle_state = NodePath("../idle")
+bite_state = NodePath("../bite")
+death_state = NodePath("../death")
+animation_name = "idle"
+move_speed = 1.2
+
+[node name="bite" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state", "bite_state", "death_state")]
+script = ExtResource("6_lfu0x")
+idle_state = NodePath("../idle")
+move_state = NodePath("../move")
+bite_state = NodePath(".")
+death_state = NodePath("../death")
+animation_name = "bite"
+
+[node name="death" type="Node" parent="state_machine"]
+script = ExtResource("7_isbpi")
+animation_name = "death"
+
+[node name="audio" type="Node" parent="."]
+
+[node name="fly" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("12_hhrh2")
+volume_db = -20.0
+
+[node name="bite" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("13_mnn8f")
+volume_db = -10.0
+
+[node name="death" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("14_tekj7")
+volume_db = -10.045
+
+[connection signal="animation_finished" from="animations" to="state_machine/bite" method="_on_animations_animation_finished"]
+[connection signal="animation_finished" from="animations" to="state_machine/death" method="_on_animations_animation_finished"]
+[connection signal="area_entered" from="Detectbox" to="state_machine/idle" method="_on_detectbox_area_entered"]
+[connection signal="area_exited" from="Detectbox" to="state_machine/move" method="_on_detectbox_area_exited"]
+[connection signal="area_exited" from="Detectbox" to="state_machine/bite" method="_on_detectbox_area_exited"]
+[connection signal="area_entered" from="Attackbox" to="state_machine/move" method="_on_attackbox_area_entered"]
+[connection signal="area_exited" from="Attackbox" to="state_machine/bite" method="_on_attackbox_area_exited"]
+[connection signal="area_entered" from="Hurtbox" to="bat_manager" method="_on_hurtbox_area_entered"]
+[connection signal="area_exited" from="Hurtbox" to="bat_manager" method="_on_hurtbox_area_exited"]
+
+[editable path="Detectbox"]
+[editable path="Attackbox"]
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

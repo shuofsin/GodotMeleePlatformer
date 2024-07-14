@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://unbq8lw5lfc4"]
+
+[ext_resource type="Script" path="res://Scripts/hitbox.gd" id="1_8t1dd"]
+
+[node name="Hitbox" type="Area2D"]
+monitoring = false
+script = ExtResource("1_8t1dd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color(0.560784, 0, 0.470588, 1)
