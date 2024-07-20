@@ -1,5 +1,8 @@
-res://Scenes/HoundBoss.tscn
 res://Scripts/hitflash.gdshader
+res://Scenes/closing.tscn
+res://Scenes/opening.tscn
+res://Scenes/HoundBoss.tscn
+res://Scripts/Hound/final.gd
 res://Scenes/Game.tscn
 res://Scenes/Gunner.tscn
 res://Scenes/Bat.tscn
@@ -11,4 +14,3 @@ res://Scenes/AirProjectile.tscn
 res://Scenes/Marker.tscn
 res://Scenes/Hurtbox.tscn
 res://Scenes/world_boundry.tscn
-res://Scripts/Hound/hound.gd

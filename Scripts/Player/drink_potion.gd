@@ -24,7 +24,7 @@ func process_physics(delta: float) -> State:
 	
 	if drink_finished:
 		if not selection: 
-			parent.manager.hitpoints += 1
+			parent.manager.hitpoints = parent.manager.max_health
 			parent.manager.has_health_potion = false
 		else:
 			parent.manager.energy = parent.manager.max_energy

@@ -15,6 +15,13 @@ var energy: int = 0
 var is_dead = false
 var has_health_potion = false
 var has_energy_potion = false
+@onready var camera: Camera2D = $"../camera"
+@onready var death_message: Sprite2D = $"../camera/Death-message"
+
+func _ready() -> void:
+	for gui_sprite in camera.get_children():
+		gui_sprite.visible = true
+	death_message.visible = false
 
 func _process(delta: float) -> void:
 	render_hud()

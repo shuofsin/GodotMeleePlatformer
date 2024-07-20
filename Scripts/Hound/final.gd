@@ -14,3 +14,4 @@ func process_physics(delta: float) -> State:
 func _on_animations_animation_finished(anim_name: StringName) -> void:
 	if anim_name == animation_name:
 		parent.queue_free()
+		get_tree().change_scene_to_file("res://Scenes/closing.tscn")

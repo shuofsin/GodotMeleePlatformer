@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://1bb0gptrt3vb"]
+[gd_scene load_steps=49 format=3 uid="uid://1bb0gptrt3vb"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_cu2hi"]
 [ext_resource type="Texture2D" uid="uid://qaq0m3mue2ks" path="res://Assets/dark-knight/spritesheets/1x/dark-knight-master.png" id="2_6b03t"]
@@ -29,6 +29,7 @@
 [ext_resource type="AudioStream" uid="uid://jd1ladesjggu" path="res://Assets/sounds/player/air_attack.wav" id="27_nqmqy"]
 [ext_resource type="AudioStream" uid="uid://bb26kiy6yyv7b" path="res://Assets/sounds/hit.wav" id="28_qm3fp"]
 [ext_resource type="AudioStream" uid="uid://dk5cfyyxv6cn0" path="res://Assets/sounds/player/player_death.mp3" id="29_f6clu"]
+[ext_resource type="Texture2D" uid="uid://caoaqqecwe5yp" path="res://Assets/Death-message.png" id="30_6s2x1"]
 
 [sub_resource type="Animation" id="Animation_jil67"]
 length = 0.001
@@ -519,6 +520,12 @@ script = ExtResource("2_tqcyk")
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(0, -25)
 zoom = Vector2(5, 5)
+
+[node name="Death-message" type="Sprite2D" parent="camera"]
+visible = false
+position = Vector2(2.27374e-13, -24)
+scale = Vector2(0.598958, 0.5)
+texture = ExtResource("30_6s2x1")
 
 [node name="hp_display" type="Sprite2D" parent="camera"]
 position = Vector2(-90, -80)
